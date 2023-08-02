@@ -20,7 +20,6 @@ from tensorflow.keras.datasets import mnist
 x_train , x_test	= np.array(x_train,np.float32) , np.array(x_test,np.float32)
 #converting the datasets into 1 dimensional vector
 x_train , x_test	= x_train.reshape([-1 , num_features]) , x_test.reshape([-1 , num_features])
-#normalizing the vector
 x_train , x_test	= x_train / 255. , x_test / 255.
 # Use tf.data API to shuffle and batch data
 train_data	= tf.data.Dataset.from_tensor_slices((x_train,y_train))
@@ -29,14 +28,12 @@ train_data	= train_data.repeat().shuffle(5000).batch(batch_size).prefetch(1)
 random_normal	= tf.initializers.RandomNormal()
 
 weights	= {	#hidden layer1 weights : shape(784,128)
-		'h_1' : tf.Variable(random_normal([num_features,n_hidden_1])),
+		'h_1' : tf.Variable(random_normal([num_features, n_hidden_1])),
 		#hidden layer2 weights : shape(128, 256)
-		'h_2' : tf.Variable(random_normal([n_hidden_1 , n_hidden_2])),
+		'h_2' : tf.Variable(random_normal([n_hidden_1, n_hidden_2])),
 		#out layer weights : shape(256,10)
-		'out' : tf.Variable(random_normal([n_hidden_2 , num_classes]))
+		'out' : tf.Variable(random_normal([n_hidden_2, num_classes]))
 		}
-
-
 
 #intializing biases values 
 biases	= {
